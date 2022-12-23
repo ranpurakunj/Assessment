@@ -1,0 +1,29 @@
+To create many-to-many relationships between table in db1 and table in db2, we will need to create a third table.
+
+Creating user table in db1:
+CREATE TABLE db1.user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    name TEXT UNIQUE NOT NULL,
+    age INTEGER NOT NULL,
+    email TEXT NOT NULL,
+    pin TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    UNIQUE(phone, email)
+);
+
+creating clientuser table in the db2 
+
+CREATE TABLE db2.clientuser(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    employeename TEXT UNIQUE NOT NULL,
+    department TEXT NOT NULL,
+    age INTEGER NOT NULL,
+    salary REAL NOT NULL
+);
+
+creating third user_clientuser table with many-to-many relationships
+ CREATE TABLE user_clientuser(
+    user_id INTEGER REFERENCES db1.user(id),
+    clientuser_id INTEGER REFERENCES db2.clientuser(id),
+    PRIMARY KEY (user_id, clientuser_id)    
+ );
